@@ -1,0 +1,6 @@
+A new ILoI has been posted for commentary, entitled <%= @letter.issue %>.
+
+It can be commented on at
+
+  <%= url_for :controller => 'letter', :action => 'view', :id => @letter.id, :path_only => false, :host => 'ace.heraldry.ansteorra.org' %>
+

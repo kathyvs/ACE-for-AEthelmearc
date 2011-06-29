@@ -1,0 +1,43 @@
+<%= error_messages_for :comment %>
+<% if @submission.nil? %>
+<p>Submission missing?</p>
+<% else %>
+<p><strong>Commenting on <%= @submission.filing_name %>:</strong></p>
+<% if @submission.summary %>
+<p><em><%= @submission.summary %></em></p>
+<% end %>
+<%=
+  if @submission.bwimg
+    link_to image_tag( File.join( "/", "uploads", "thumbs", @submission.bwimg ) ),
+      File.join( "/", "uploads", @submission.bwimg)
+  end
+%>
+<%=
+  if @submission.colorimg
+    link_to image_tag( File.join( "/", "uploads", "thumbs", @submission.colorimg
+) ),
+      File.join( "/", "uploads", @submission.colorimg)
+  end
+%>
+<p><%= html_clean( @submission.content ) %></p>
+<%   if @parent %>
+<p>Replying to comment by
+<%     if @parent.user %>
+<%=      @parent.longname %>
+<%     else %>
+         (deleted user)
+<%     end %>
+on <%= @parent.posted.localtime().strftime "%Y/%m/%d %H:%M:%S %Z" %>:</p>
+<p><%= html_clean( @parent.content ) %></p>
+<%   end %>
+<div class="sectionheader">Enter comment</div>
+<%   form_for :comment, :html => { :multipart => true } do |f| %>
+<%=    f.text_area :content, :rows => 15, :cols => 60 %><br />
+<%     1.upto(3) do |i| %>
+<%=      f.file_field "img#{i}" %>
+<%     end %>        
+<%=    f.hidden_field :reply_to, :value => @parent.id if @parent %><br />
+<%=    f.hidden_field :submission_id, :value => @submission.id %><br />
+<%=    submit_tag "Post" %>
+<%   end %>
+<% end %>

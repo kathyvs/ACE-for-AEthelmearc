@@ -1,0 +1,4 @@
+On the letter <%= @comment.letter_name %>, <%= @comment.longname %> replied to your comment on <%= @comment.filing_name %>:
+<%= @comment.content %>
+
+View this comment at <%= url_for :controller => 'letter', :action => 'view', :id => @comment.letter.id, :anchor => ( 'sub-%d' % @comment.submission.id ), :path_only => false, :host => 'ace.heraldry.ansteorra.org' %>

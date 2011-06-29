@@ -1,0 +1,20 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+top:
+  id: 1
+  content: woo hoo
+  posted: <%= Time.now.strftime "%Y-%m-%d %H:%M:%S" %>
+  submission_id: 2
+  user_id: 3
+reply:
+  id: 2
+  content: bah ram ewe
+  posted: <%= Time.now.strftime "%Y-%m-%d %H:%M:%S" %>
+  submission_id: 2
+  user_id: 3
+  reply_to: 1
+locked:
+  id: 3
+  content: va va vooie
+  posted: <%= Time.now.strftime "%Y-%m-%d %H:%M:%S" %>
+  submission_id: 3
+  user_id: 3

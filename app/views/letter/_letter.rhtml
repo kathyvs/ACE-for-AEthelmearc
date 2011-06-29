@@ -1,0 +1,7 @@
+<tr>
+<td><%= link_to letter.issue, :action => "view", :id => letter.id %></td>
+<td>(<%= letter.posted %>)</td>
+<td><%= letter.last_comment.posted.localtime().strftime "%Y/%m/%d %H:%M:%S %Z" if letter.last_comment %></td>
+<td><%= link_to "ILoI ONLY", :action => "view", :id => letter.id, :view => "iloi", :comments => "off" %></td>
+<td><%= link_to "ICC ONLY", :action => "view", :id => letter.id, :view => "icc" %></td>
+</tr>

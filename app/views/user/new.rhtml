@@ -1,0 +1,22 @@
+<%= error_messages_for :user %>
+<div class="sectionheader">New User (All Blanks Must Be Completed)</div>
+<% form_for :user do |f| %>
+<table>
+  <tr>
+    <td>Requested Login:</td><td><%= f.text_field :login %></td>
+  </tr>
+  <tr>
+    <td>Requested Password:</td><td><%= f.password_field :password %></td>
+  </tr>
+  <tr>
+    <td>Confirm Password:</td><td><%= f.password_field :password_confirmation %></td>
+  </tr>
+  <tr>
+    <td>SCA Name:</td><td><%= f.text_field :sca_name %></td>
+  </tr>
+  <tr>
+    <td>Email:</td><td><%= f.text_field :email %></td>
+  </tr>
+</table>
+<%=  submit_tag "Create" %>
+<% end %>

@@ -1,0 +1,6 @@
+<tr>
+<td><%= link_to lockedletter.issue, :action => "view", :id => lockedletter.id %></td>
+<td>(<%= lockedletter.posted %>)</td>
+<td><%= link_to "ILoI ONLY", :action => "view", :id => lockedletter.id, :view => "iloi", :comments => "off" %></td>
+<td><%= link_to "ICC ONLY", :action => "view", :id => lockedletter.id, :view => "icc" %></td>
+</tr>

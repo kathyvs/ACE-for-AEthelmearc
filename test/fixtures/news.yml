@@ -1,0 +1,6 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id: 1
+  content: howdy howdy
+  posted: <%= Time.now.strftime "%Y-%m-%d %H:%M:%S" %>
+  user_id: 1

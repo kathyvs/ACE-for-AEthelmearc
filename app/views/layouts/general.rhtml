@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title><%= kingdom['adjective'] %> College of Heralds Commentary</title>
+    <meta http-equiv="content-language" content="en" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta name="author" content="Reis ap Tuder" />
+    <meta name="description" content="<%= kingdom['adjective'] %> College of Heralds commentary" />
+    <meta name="keywords" content="aethelmearc,herald,college,blazon,sca" />
+    <meta name="robots" content="noindex,nofollow" />
+    <% unless params[:view] == "iloi" or params[:view] == "icc" %>
+    <%= stylesheet_link_tag 'general' %>
+    <% else %>
+    <%= stylesheet_link_tag 'plain' %>
+    <% end %>
+  </head>
+  <body>
+  <% unless params[:view] == "iloi" or params[:view] == "icc" %>
+    <div id="content">
+      <div id="banner">
+	<a href="<%= kingdom['heralds_link'] %>"><img src="/images/banners/<%= banner%>" alt="<%= kingdom['adjective']%> College of Heralds"/></a>
+      </div>
+      <%= "<div id=\"error\">"+flash[:error_message]+"</div>" if flash[:error_message] %>
+      <table cellpadding="10">
+        <tr>
+	  <td valign="top">
+	    <div id="navbar">
+	      <% if session[:user] %>
+	      <center><em><%= session[:user].login %></em></center><br />
+	      <% end %>
+	      <ul class="OneColList">
+		<li><%= link_to "Home", :controller => "user", :action => "index" %></li>
+		<% if session[:user] %>
+		<li><%= link_to "Logout", :controller => "user", :action => "logout" %></li>
+		<li><%= link_to "My&nbsp;Profile", :controller => "user", :action => :edit, :id => session[:user].id %></li>
+		<% else %>
+		<li><%= link_to "Login", :controller => "user", :action => "login" %></li>
+		<li><%= link_to "New&nbsp;User", :controller => "user", :action => "new" %></li>
+		<% end %>
+		<% if u=session[:user] and u.submit_flag? %>
+		<li><%= link_to "My&nbsp;Drafts", :controller => "submission", :action => "drafts" %></li>
+		<% end %>
+		<li><%= link_to "Letters", :controller => "letter", :action => "list" %></li>
+		<li><%= link_to "Users", :controller => "user", :action => "list" %></li>
+		<% if u=session[:user] and u.submit_flag? %>
+		<li><%= link_to "Add News", :controller => "news", :action => "new" %></li>
+		<% end %>
+	      </ul>
+	    </div>
+	  </td>
+	  <td width="100%" valign="top">
+  <% end %>
+	    <%= @content_for_layout %>
+  <% unless params[:view] == "iloi" or params[:view] == "icc" %>
+	    <div id="footer">
+	      <p><hr /></p>
+	      <p>ACE is a Ruby on Rails application written and maintained by HL Reis ap Tuder of Mooneschadowe.</p>
+	      <p><a href="<%= kingdom['heralds_link']%>">College of Heralds</a> - <a href="<%= kingdom['link']%>/">Kingdom of <%= kingdom['subject'] %></a></p>
+	    </div>
+	  </td>
+	</tr>
+      </table>
+    </div>
+  <% end %>
+  </body>
+</html>

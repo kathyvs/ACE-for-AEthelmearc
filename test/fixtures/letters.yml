@@ -1,0 +1,10 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+unlocked:
+  id: 1
+  posted: <%= Date.today %>
+  comments: blooey blooey
+locked:
+  id: 2
+  posted: <%= Date.today %>
+  locked: <%= Date.today %>
+  comments: wubba wubba

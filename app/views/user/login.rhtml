@@ -1,0 +1,12 @@
+<div class="sectionheader">Login</div>
+<% form_tag do %>
+<table>
+  <tr>
+    <td>Login:</td><td><%= text_field_tag :login %></td>
+  </tr>
+  <tr>
+    <td>Password:</td><td><%= password_field_tag %></td>
+  </tr>
+</table>
+<%=  submit_tag "Login" %>
+<% end %>

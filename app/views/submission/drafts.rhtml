@@ -1,0 +1,6 @@
+<%= link_to "New Draft", :action => "new" %>
+<%= link_to "New Letter", :controller => "letter", :action => "new" %>
+<div class="sectionheader">My Drafts</div>
+<%= render :partial => "draft", :collection => @drafts %>
+<%= link_to "New Draft", :action => "new" %>
+<%= link_to "New Letter", :controller => "letter", :action => "new" %>

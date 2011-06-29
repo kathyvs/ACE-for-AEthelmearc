@@ -1,0 +1,44 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+admin:
+  id: 1
+  login: russ
+  encrypted_password: 74fa5327cc0f4e947789dd5e989a61a8242986a596f170640ac90337b1da1ee4
+  submit_flag: true
+  valid_flag: true
+  admin_flag: true
+  sca_name: Reis ap Tuder
+  mundane_name: Russ Smith
+  email: reis@mailinator.com
+  title: HCS Developer
+submitter:
+  id: 2
+  login: estrill
+  encrypted_password: 74fa5327cc0f4e947789dd5e989a61a8242986a596f170640ac90337b1da1ee4
+  submit_flag: true
+  valid_flag: true
+  admin_flag: false
+  sca_name: Estrill de Swet
+  mundane_name: Debbie Sweet
+  email: estrill@mailinator.com
+  title: Asterisk Herald
+commenter:
+  id: 3
+  login: magnus
+  encrypted_password: 74fa5327cc0f4e947789dd5e989a61a8242986a596f170640ac90337b1da1ee4
+  submit_flag: false
+  valid_flag: true
+  admin_flag: false
+  sca_name: Magnus von Lubeck
+  mundane_name: Doug Bell
+  email: magnus@mailinator.com
+  title: Pursuivant Extraordinaire
+bozo:
+  id: 4
+  login: bozoticus
+  encrypted_password: 74fa5327cc0f4e947789dd5e989a61a8242986a596f170640ac90337b1da1ee4
+  submit_flag: false
+  valid_flag: false
+  admin_flag: false
+  sca_name: Bozoticus Maximus
+  mundane_name: Petey Pesterer
+  email: bozoticus@mailinator.com

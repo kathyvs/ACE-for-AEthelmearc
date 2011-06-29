@@ -1,0 +1,24 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+draft:
+  id: 1
+  filing_name: Fred Rogers
+  draft_flag: true
+  user_id: 2
+  sub_type_id: 1
+  content: "woo hoo"
+posted:
+  id: 2
+  filing_name: Ginger Rogers
+  draft_flag: false
+  user_id: 2
+  sub_type_id: 1
+  letter_id: 1
+  content: "woo hoo"
+locked:
+  id: 3
+  filing_name: Fred Astaire
+  draft_flag: false
+  user_id: 2
+  sub_type_id: 1
+  letter_id: 2
+  content: "woo hoo"

@@ -1,0 +1,27 @@
+<%= draft_counter+1 %>. <%= draft.filing_name %>
+<% if draft.sub_type %>
+<%   if draft.resub_flag? %>
+Resubmitted
+<%   else %>
+New
+<%   end %>
+<%=  draft.sub_type.name %>.
+<% end %>
+<%= link_to "Edit", :action => "edit", :id => draft.id %>
+<%= link_to "Delete", { :action => "delete", :id => draft.id }, :confirm => "Are you sure?", :method => "post" %><br />
+<%= "#{draft.email}<br />" unless draft.email.blank? %>
+<%= "<em>#{draft.summary}</em><br />" unless draft.summary.blank? %>
+<%=
+  if draft.bwimg
+    link_to image_tag( File.join( "/", "uploads", "thumbs", draft.bwimg ) ),
+      File.join( "/", "uploads", draft.bwimg)
+  end
+%>
+<%=
+  if draft.colorimg
+    link_to image_tag( File.join( "/", "uploads", "thumbs", draft.colorimg ) ),
+      File.join( "/", "uploads", draft.colorimg)
+  end
+%>
+<p><%= html_clean(draft.content) %></p>
+<br clear=all>

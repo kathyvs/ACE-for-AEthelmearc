@@ -1,0 +1,158 @@
+.lettername {
+	font-size: larger;
+	font-weight: bold;
+	font-variant: small-caps;
+	font-family: sans-serif;
+}
+
+.filingname {
+	font-weight: bold;
+}
+
+
+body {
+//	background-image: url('/images/backgrounds/bg-tile5.gif');
+        background-image: url('/images/backgrounds/parchment.jpg');
+	background-repeat: repeat;
+	text-align: center;
+	word-wrap: break-word;
+	white-space: normal;
+}
+
+a {
+	color: #557722;
+}
+
+#content {
+	width: 90%;
+	text-align: left;
+	word-wrap: break-word;
+	white-space: normal;
+	margin: auto;
+	padding: 1em;
+}
+
+#banner {
+	text-align: center;
+	margin-bottom: 2em;
+}
+
+#navbar {
+	background-color: #cc1100;
+	padding: 1em;
+	font-size: 12pt;
+	font-family: Tahoma, sans;
+	color: white;
+	margin: 1em;
+	border: double;
+}
+
+#navbar a {
+	color: white;
+	text-decoration: none;
+}
+
+#navbar a:hover {
+	color: #dd6611;
+	text-decoration: none;
+}
+
+#minutae {
+	font-size: 7pt;
+}
+
+.sectionheader {
+	font-variant: small-caps;
+	font-weight: bold;
+	margin-top: 1em;
+}
+
+#scribes {
+	margin-bottom: 1em;
+	font-family: Garamond,Times New Roman,serif;
+	font-size: large;
+	font-weight: bold;
+	text-align: center;
+/*	border: 1px white solid; */
+	padding: 5px;
+}
+#footer {
+  color: #bb2211;
+  text-align: center;
+  font-size: 0.8em;
+}
+#footer hr {
+  margin: 0px 10%;
+  color: black;
+}
+
+.fineprint {
+	font-size: smaller;
+}
+
+.icc a {
+  font-size: small;
+  text-decoration:none;
+}
+
+.center { 
+  text-align: center;
+}
+
+.center table { 
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.indentBlock {
+  margin-left: 2em;
+}
+
+.announce {
+  font-style: italic;
+  color: #cc5555;
+}
+
+.OneColList {
+  width: 100%;
+  padding: 0 0.5em;
+  margin: 0 0.5em;
+}
+.OneColList li {
+  padding-top: 0.1em;
+  list-style-type:none;
+}
+
+.TwoColList {
+  width: 100%;
+  padding: 0 0.5em;
+  margin: 0 0.5em;
+}
+.TwoColList li {
+  padding-top: 0.1em;
+  float: left;
+  width: 50%;
+  list-style-type:none;
+}
+.clear {
+  font-size:1px; 
+  line-height:0em; 
+  overflow:hidden;
+  clear: both;
+}
+.green {
+  color: #007100;
+}
+.bold {
+  font-weight: bold;
+}
+
+.fieldWithErrors textarea, .fieldWithErrors input {
+  border: red 2px solid;
+  background: yellow;
+}
+
+#comment {
+  margin-left: 25px;
+}

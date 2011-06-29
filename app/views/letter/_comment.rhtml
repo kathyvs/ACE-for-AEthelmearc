@@ -1,0 +1,44 @@
+<p><strong>Comment by
+<% if comment.user %>
+<%   if session[:user] and session[:user].valid_flag? and comment.email and params[:view] != "iloi" and params[:view] != "icc" %>
+<%=    mail_to comment.email, comment.longname %>
+<%   else %>
+<%=    comment.longname %>
+<%   end %>
+<% else %>
+(deleted user)
+<% end %>
+on <%= comment.posted.localtime().strftime "%Y/%m/%d %H:%M:%S %Z" %>:
+<% if session[:user] and (session[:user] == comment.user or
+       session[:user].admin_flag? ) and not comment.locked? and params[:view] != "iloi" and params[:view] != "icc" %>
+<%= link_to "Edit", :controller => "comment", :action => "edit",
+        :id => comment %>
+<% end %>
+<% if session[:user] and (session[:user] == comment.user or
+      session[:user].admin_flag? ) and comment.replies.empty? and
+      not comment.locked? and params[:view] != "iloi" and params[:view] != "icc" %>
+<%= link_to "Delete", { :controller => "comment", :action => "delete",
+        :id => comment}, :method => "post" %>
+<% end %>
+<% if @postable and params[:view] != "iloi" and params[:view] != "icc" %>
+<%= link_to "Reply", :controller => "comment", :action => "new",
+        :submission => comment.submission, :parent => comment %>
+<% end %></strong>
+<br />
+<% if comment.edited %>
+<em>Last edited on <%= comment.edited.localtime().strftime "%Y/%m/%d %H:%M:%S %Z" %></em><br />
+<% end %>
+<%= html_clean(comment.content) %></p>
+<%
+  1.upto(3) do |i|
+    if comment["img#{i}"] %>
+<%= i %>. <%=      link_to image_tag( File.join( "/", "uploads", "thumbs", comment["img#{i}"] ) ),
+      File.join( "/", "uploads", comment["img#{i}"]) %>
+<%    end
+  end
+%>
+
+<div id="comment">
+<%=  render :partial => "comment",
+         :collection => comment.replies.find( :all, :order => "posted" ) %>
+</div>

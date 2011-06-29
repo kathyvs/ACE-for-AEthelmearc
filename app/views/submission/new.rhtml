@@ -1,0 +1,16 @@
+<%= error_messages_for :submission %>
+<div class="sectionheader">New Draft</div>
+<% form_for :submission, :html => { :multipart => true } do |f| %>
+Filing Name: <%= f.text_field :filing_name %><br />
+Type: <%= f.collection_select :sub_type_id,
+              SubType.find(:all, :order => "name" ), :id, :name,
+              :prompt => true %>
+Resubmission? <%= f.check_box :resub_flag %><br />
+Submitted Item: <%= f.text_field :summary, :size => 60 %><br />
+Line Image: <%= f.file_field :bwimg %><br />
+Color Image: <%= f.file_field :colorimg %><br />
+Email: <%= f.text_field :email %><br />
+Content:<br />
+<%= f.text_area :content, :rows => 15, :cols => 60 %><br />
+<%= submit_tag "Create" %>
+<% end %>

@@ -1,0 +1,28 @@
+<%= error_messages_for :user %>
+<div class="sectionheader">Edit Profile for <%= @user.login %></div>
+<p><%= link_to "Change Password", :action => "change_password", :id => @user %></p>
+<% form_for :user do |f| %>
+<table>
+  <tr>
+    <td>Email address:</td>
+    <td><%= f.text_field :email %></td>
+  </tr>
+  <tr>
+    <td>Mundane Name:</td>
+    <td><%= f.text_field :mundane_name %></td>
+  </tr>
+  <tr>
+    <td>SCA Name:</td>
+    <td><%= f.text_field :sca_name %></td>
+  </tr>
+  <tr>
+    <td>Heraldic title (leave blank if none):</td>
+    <td><%= f.text_field :title %></td>
+  </tr>
+  <tr>
+    <td>Check if to receive email when new ILoIs are posted:</td>
+    <td><%= f.check_box :mailok_flag %></td>
+  </tr>
+</table>
+<%=  submit_tag "Save" %>
+<% end %>

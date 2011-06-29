@@ -1,0 +1,17 @@
+<%= error_messages_for :comment %>
+<% if @comment.nil? %>
+Comment missing?
+<% else %>
+<p>Editing comment on <%= @comment.filing_name %>:</p>
+<p><%= html_clean( @comment.submission.content ) %></p>
+<div class="sectionheader">Enter comment</div>
+<%   form_for :comment, :html => { :multipart => true } do |f| %>
+<%=    f.text_area :content, :rows => 15, :cols => 60 %><br />
+<%     1.upto(3) do |i| %>
+Image <%= i %>.<br />
+<%=      image_tag( File.join( "/", "uploads", "thumbs", @comment["img#{i}"] ) ) if @comment["img#{i}"] %>
+<%=      f.file_field "img#{i}" %><br />
+<%     end %>
+<%=    submit_tag "Post" %>
+<%   end %>
+<% end %>

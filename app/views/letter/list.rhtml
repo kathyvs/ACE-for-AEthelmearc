@@ -1,0 +1,24 @@
+<div class="sectionheader">Letters</div>
+<p>These are Ansteorra's Internal Letter of Intent. Commentary is open until
+the 10th of the month following the letter, so the August ILoI is open for
+comments until September 10.</p>
+<table>
+<tr>
+<td colspan=5>Currently active letters:</td>
+</tr>
+<tr>
+<th>Issue Date</th>
+<th>(Published)</th>
+<th>Last Comment</th>
+</tr>
+<%= render :partial => "letter", :collection => @open_letters %>
+</table>
+<table>
+<td colspan=4>Letters no longer available for commentary:</td>
+</tr>
+<tr>
+<th>Issue Date</th>
+<th>(Published)</th>
+</tr>
+<%= render :partial => "lockedletter", :collection => @locked_letters %>
+</table>

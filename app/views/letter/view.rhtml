@@ -1,0 +1,20 @@
+<span class="sectionheader"><%= @letter.issue %> Letter</span>
+<% if @letter.locked %>
+(locked on <%= @letter.locked %>)
+<% end %>
+<% if session[:user] && session[:user].admin_flag and params[:view] != "iloi" and params[:view] != "icc"
+     if @letter.locked %>
+<%=    link_to "Unlock", :action => "toggle_lock", :id => @letter.id %>
+<%   else %>
+<%=    link_to "Lock", :action => "toggle_lock", :id => @letter.id %>
+<%   end
+   end %>
+<% if params[:view] == "icc" and @commenters.length > 0 %>
+<p>
+This letter contains commentary from the following people:<br />
+<%= render :partial => "commenter", :collection => @commenters %>
+</p>
+<% end %>
+<p><%= html_clean(@letter.comments) %></p>
+<%= render :partial => "submission", :collection => @letter.submissions,
+        :spacer_template => "submission_divider" %>

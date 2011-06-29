@@ -1,0 +1,10 @@
+<%= error_messages_for :letter %>
+<div class="sectionheader">New Letter</div>
+<% @letter.issue = Date.today.to_s %>
+<% form_for :letter do |f| %>
+<%=  f.text_field :issue %><br />
+<%=  render :partial => "draft", :collection => @drafts %>
+Comments:<br />
+<%=  f.text_area :comments, :cols => 60, :rows => 15 %><br />
+<%=  submit_tag "Finalize" %>
+<% end %>

@@ -1,0 +1,6 @@
+<%= error_messages_for :news %>
+<div class="sectionheader">Add News</div>
+<% form_for :news do |f| %>
+<%=  f.text_area :content, :rows => 15, :cols => 60 %><br />
+<%=  submit_tag "Post" %>
+<% end %>
