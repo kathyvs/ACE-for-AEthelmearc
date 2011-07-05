@@ -2,7 +2,7 @@
 
 require File.dirname(__FILE__) + '/../test_helper'
 
-class SubTypeTest < Test::Unit::TestCase
+class SubTypeTest < ActiveSupport::TestCase
   def test_create_read_update_delete
 	  noob = SubType.new( :name => "flip", :abbrev => "flop" )
 		assert noob.save # create

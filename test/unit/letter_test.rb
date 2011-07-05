@@ -2,7 +2,7 @@
 
 require File.dirname(__FILE__) + '/../test_helper'
 
-class LetterTest < Test::Unit::TestCase
+class LetterTest < ActiveSupport::TestCase
   fixtures :users
 
   def test_create_read_update_delete

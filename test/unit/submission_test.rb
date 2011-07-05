@@ -2,7 +2,7 @@
 
 require File.dirname(__FILE__) + '/../test_helper'
 
-class SubmissionTest < Test::Unit::TestCase
+class SubmissionTest < ActiveSupport::TestCase
   fixtures :users, :submissions, :comments, :sub_types
 
   def test_create_read_update_delete

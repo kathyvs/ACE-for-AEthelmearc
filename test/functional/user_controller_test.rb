@@ -6,7 +6,7 @@ require 'user_controller'
 # Re-raise errors caught by the controller.
 class UserController; def rescue_action(e) raise e end; end
 
-class UserControllerTest < Test::Unit::TestCase
+class UserControllerTest < ActionController::TestCase
   fixtures :users
 
   def setup
@@ -42,13 +42,13 @@ class UserControllerTest < Test::Unit::TestCase
     assert_template "login"
     # success
     post :login, { :login => "russ", :password => "frog" }
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
   end
 
   def test_logout
     # success
     get :logout
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
   end
 
   def test_get_new
@@ -70,26 +70,28 @@ class UserControllerTest < Test::Unit::TestCase
     post :new, { :user => { :login => "john", :sca_name => "John Johns",
         :email => "john@mailinator.com", :password => "frog",
         :password_confirmation => "frog" } }
-    assert_redirected_to :action => "edit"
-    assert_equal ActionMailer::Base.deliveries.size, 1
+    new_user = User.find_by_login("john")
+    assert_equal 'john@mailinator.com', new_user.email
+    assert_redirected_to :action => :edit, :id => new_user
+    assert_equal 1, ActionMailer::Base.deliveries.size
   end
 
   def test_get_delete
     # fail
     get :delete, { :id => users(:bozo) }, :user => users(:admin)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
   end
 
   def test_post_delete
     # fail: not logged in
     post :delete, { :id => users(:bozo) }, {}
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: not admin
     post :delete, { :id => users(:bozo) }, :user => users(:submitter)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: user not found
     post :delete, { :id => 1231231 }, :user => users(:admin)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # success
     post :delete, { :id => users(:bozo) }, :user => users(:admin)
     assert_redirected_to :action => "list"
@@ -98,10 +100,10 @@ class UserControllerTest < Test::Unit::TestCase
   def test_get_edit
     # fail: not logged in
     get :edit, { :id => users(:bozo).id }, {}
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: not user or admin
     get :edit, { :id => users(:bozo).id }, :user => users(:submitter)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # success (user)
     get :edit, { :id => users(:bozo).id }, :user => users(:bozo)
     assert_template "edit"
@@ -114,20 +116,20 @@ class UserControllerTest < Test::Unit::TestCase
     goodparams = { :id => users(:bozo).id, :user => { :sca_name => "Big Bob" } }
     # fail: not logged in
     post :edit, goodparams, {}
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: not user or admin
     post :edit, goodparams, :user => users(:submitter)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: user not found
     post :edit, { :id => 12312312 }, :user => users(:admin)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: invalid
     post :edit, { :id => users(:bozo).id, :user => { :sca_name => "" } },
         :user => users(:admin)
     assert_template "edit"
     # success
     post :edit, goodparams, :user => users(:admin)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     users(:bozo).reload
     assert_equal users(:bozo).sca_name, "Big Bob"
   end
@@ -135,11 +137,11 @@ class UserControllerTest < Test::Unit::TestCase
   def test_get_change_password
     # fail: not logged in
     get :change_password, { :id => users(:bozo) }, {}
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: not user or admin
     get :change_password, { :id => users(:bozo) },
         { :user => users(:submitter) }
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # success
     get :change_password, { :id => users(:bozo) },
         { :user => users(:bozo) }
@@ -151,13 +153,13 @@ class UserControllerTest < Test::Unit::TestCase
         :user => { :password => "splat", :password_confirmation => "splat" } }
     # fail: not logged in
     post :change_password, goodparams, {}
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: not user or admin
     post :change_password, goodparams, :user => users(:submitter)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: user not found
     post :change_password, { :id => 12312312 }, :user => users(:admin)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: invalid
     post :change_password, { :id => users(:bozo),
         :user => { :password => "" } }, :user => users(:bozo)
@@ -169,7 +171,7 @@ class UserControllerTest < Test::Unit::TestCase
     assert_template "change_password"
     # success
     post :change_password, goodparams, :user => users(:bozo)
-    assert_redirected_to :action => "edit"
+    assert_redirected_to :action => :edit, :id => users(:bozo)
     users(:bozo).reload
     assert users(:bozo).check_password("splat")
   end
@@ -177,31 +179,31 @@ class UserControllerTest < Test::Unit::TestCase
   def test_validate
     # fail: not logged in
     get :validate, { :id => users(:bozo) }, {}
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: not admin
     get :validate, { :id => users(:bozo) }, :user => users(:submitter)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: user not found
     get :validate, { :id => 1231231 }, :user => users(:admin)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # success
     get :validate, { :id => users(:bozo) }, :user => users(:admin)
     assert_redirected_to :action => "list"
     users(:bozo).reload
     assert users(:bozo).valid_flag?
-    assert_equal 2, ActionMailer::Base.deliveries
+    assert_equal 2, ActionMailer::Base.deliveries.size
   end
 
   def test_unvalidate
     # fail: not logged in
     get :unvalidate, { :id => users(:bozo) }, {}
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: not admin
     get :unvalidate, { :id => users(:bozo) }, :user => users(:submitter)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: user not found
     get :unvalidate, { :id => 1231231 }, :user => users(:admin)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # success
     get :unvalidate, { :id => users(:bozo) }, :user => users(:admin)
     assert_redirected_to :action => "list"
@@ -212,13 +214,13 @@ class UserControllerTest < Test::Unit::TestCase
   def test_grant_submit
     # fail: not logged in
     get :grant_submit, { :id => users(:bozo) }, {}
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: not admin
     get :grant_submit, { :id => users(:bozo) }, :user => users(:submitter)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: user not found
     get :grant_submit, { :id => 1231231 }, :user => users(:admin)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # success
     get :grant_submit, { :id => users(:bozo) }, :user => users(:admin)
     assert_redirected_to :action => "list"
@@ -229,13 +231,13 @@ class UserControllerTest < Test::Unit::TestCase
   def test_revoke_submit
     # fail: not logged in
     get :revoke_submit, { :id => users(:bozo) }, {}
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: not admin
     get :revoke_submit, { :id => users(:bozo) }, :user => users(:submitter)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: user not found
     get :revoke_submit, { :id => 1231231 }, :user => users(:admin)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # success
     get :revoke_submit, { :id => users(:bozo) }, :user => users(:admin)
     assert_redirected_to :action => "list"
@@ -246,13 +248,13 @@ class UserControllerTest < Test::Unit::TestCase
   def test_grant_admin
     # fail: not logged in
     get :grant_admin, { :id => users(:bozo) }, {}
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: not admin
     get :grant_admin, { :id => users(:bozo) }, :user => users(:submitter)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: user not found
     get :grant_admin, { :id => 1231231 }, :user => users(:admin)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # success
     get :grant_admin, { :id => users(:bozo) }, :user => users(:admin)
     assert_redirected_to :action => "list"
@@ -263,13 +265,13 @@ class UserControllerTest < Test::Unit::TestCase
   def test_revoke_admin
     # fail: not logged in
     get :revoke_admin, { :id => users(:bozo) }, {}
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: not admin
     get :revoke_admin, { :id => users(:bozo) }, :user => users(:submitter)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # fail: user not found
     get :revoke_admin, { :id => 1231231 }, :user => users(:admin)
-    assert_redirected_to :action => "index"
+    assert_redirected_to :action => :index
     # success
     get :revoke_admin, { :id => users(:bozo) }, :user => users(:admin)
     assert_redirected_to :action => "list"
