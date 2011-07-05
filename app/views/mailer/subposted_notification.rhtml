@@ -1,14 +1,12 @@
-From the Desk of the Arbalest Herald
+From the Desk of Garnet Herald
 
-Your recent heraldic submission has been received and put on the Ansteorran
+Your recent heraldic submission has been received and put on the <%= kingdom['adjective'] %> 
 Internal Letter of Intent dated <%= @letter.issue %>.  You can see it, and
 follow the commentary, at the following URL:
 
 <%= url_for :controller => 'letter', :action => 'view', :id => @letter.id, :anchor => ( 'sub-%d' % @submission.id ), :path_only => false, :host => 'ace.heraldry.ansteorra.org' %>
 
-You will receive another email from the office of Arbalest when your submission
-has been finalized and registered, or returned for further work. For more
-information about the submissions timeline, see the article "What's Happening
-With My Submission?" at http://herald.ansteorra.org/docs/whathappens.php.
+You will receive another email from the office of Garnet when your submission
+has been finalized and registered, or returned for further work. To see your current status check the submitted items page at http://www.aeheralds.net/Submissions.html.
 
 Thank you!
