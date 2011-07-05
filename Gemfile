@@ -1,15 +1,16 @@
 source 'http://rubygems.org'
 
-gem 'rails', '2.2.2'
+gem 'rails', '2.3.4'
 
 # Bundle edge Rails instead:
 #gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-#gem 'sqlite3'
+gem 'sqlite3'
 
-gem "jdbc-mysql"
-gem "activerecord-jdbc-adapter"
-gem "activerecord-jdbcmysql-adapter"
+
+#gem "jdbc-mysql"
+#gem "activerecord-jdbc-adapter"
+#gem "activerecord-jdbcmysql-adapter"
 gem "mini_magick"
 
 # Use unicorn as the web server
@@ -32,10 +33,10 @@ gem 'ruby-debug'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'jdbc-sqlite3'
-  gem 'activerecord-jdbcsqlite3-adapter'
+  #gem 'jdbc-sqlite3'
+ # gem 'activerecord-jdbcsqlite3-adapter'
  # gem 'rspec-rails', '~> 2.5'
-  gem 'rack'
+  gem 'rack', '~> 1.0.0'
   #gem 'ruby-debug'
 #   gem 'webrat'
 end
