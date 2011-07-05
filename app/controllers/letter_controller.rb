@@ -70,14 +70,15 @@ class LetterController < ApplicationController
   end
 
   def view
-    unless params[:id] and @letter = Letter.find_by_id( params[:id] )
+    unless params[:id] and @letter = Letter.find_by_id(params[:id])
       redirect_with_error "Letter not found?"
+    else
+      @postable = (session[:user] and session[:user].valid_flag) &&
+          !@letter.locked
+      subs = @letter.submissions
+      coms = subs.map { |s| s.comments }.flatten
+      @commenters = coms.map { |c| c.user.sca_name }.uniq
     end
-    @postable = (session[:user] and session[:user].valid_flag) &&
-        !@letter.locked
-    subs = @letter.submissions
-    coms = subs.map { |s| s.comments }.flatten
-    @commenters = coms.map { |c| c.user.sca_name }.uniq
   end
 
   def toggle_lock
