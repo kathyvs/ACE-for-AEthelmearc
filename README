@@ -12,7 +12,7 @@ That said, you can contact me at reis@hailmog.org.
 HL Reis ap Tuder
 mka R. Francis Smith
 
-This version is ACE designed for AEthelmearc; however, modifying config/config.yml and config/database.yml should be enough to enable it for another kingdom (at least to start).
+This version is ACE designed for AEthelmearc; however, modifying config/config.yml and config/database.yml should be enough to enable it for another kingdom (at least to start).  You will also want to edit the notifications in app/views/mailer to suit your style and correct any links.
 
 For help on this version, contact elsbeth@pobox.com
 
