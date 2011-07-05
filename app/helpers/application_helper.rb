@@ -74,7 +74,7 @@ SIMPLE_TAG_RE = %r{<[^<>]+?>}   # Ensure that only the tag is grabbed.
   end
 
   def banner
-    
     APP_CONFIG['banner']
   end
+
 end
