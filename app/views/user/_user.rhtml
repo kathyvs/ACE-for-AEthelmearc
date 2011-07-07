@@ -11,7 +11,8 @@
 <%= link_to( "Revoke Submit", :action => "revoke_submit", :id => user.id ) if user.submit_flag %>
 <%= link_to( "Grant Admin", :action => "grant_admin", :id => user.id ) if not user.admin_flag %>
 <%= link_to( "Revoke Admin", :action => "revoke_admin", :id => user.id ) if user.admin_flag %>
-<%= link_to( "Delete", { :action => "delete", :id => user.id }, :confirm => "Are you sure?", :method => "post" ) %>
+<%= link_to( "Archive", { :action => "toggle_archive", :id => user.id }, :confirm => "Are you sure?", :method => "post" ) unless user.archived_flag %>
+<%= link_to( "Unarchive", { :action => "toggle_archive", :id => user.id }, :confirm => "Are you sure?", :method => "post" ) if user.archived_flag %>
 <%= link_to( "Edit Profile", :action => :edit, :id => user.id ) %>
 </td>
 <% end %>
