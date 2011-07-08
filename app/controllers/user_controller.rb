@@ -28,14 +28,15 @@ class UserController < ApplicationController
   end
 
   def list
-    @oldusers = User.find_all_by_valid_flag(true, :order => "sca_name" )
-    @newusers = User.find_all_by_valid_flag(false, :order => "sca_name" )
+    @oldusers = User.find_all_by_valid_flag(true, :order => "sca_name" ).select { |u| not u.archived_flag }
+    @newusers = User.find_all_by_valid_flag(false, :order => "sca_name" ).select { |u| not u.archived_flag }
+    @archusers = User.find_all_by_archived_flag(true, :order => "sca_name" )
   end
 
   def login
     if request.post?
       @user = User.find_by_login( params[:login] )
-      if @user and @user.check_password( params[:password] )
+      if @user and @user.check_password( params[:password] ) and not @user.archived_flag
         session[:user] = @user
         redirect_to :action => "index"
       else
@@ -68,11 +69,13 @@ class UserController < ApplicationController
     end
   end
 
-  def delete
+  def toggle_archive
     if request.post?
       if @user=User.find_by_id( params[:id] )
-        @user.destroy
-        redirect_to :action => "list"
+        @user.archived_flag = !@user.archived_flag
+        if @user.save!
+          redirect_to :action => "list"
+        end
       else
         redirect_with_error "User missing?"
       end
