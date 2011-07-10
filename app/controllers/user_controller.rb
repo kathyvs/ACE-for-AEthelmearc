@@ -57,8 +57,9 @@ class UserController < ApplicationController
         admins = User.admins.map { |u| u.email }
         begin
           Mailer::deliver_newuser_notification(admins,@user)
-        rescue
-          # do nothing, who cares about mail really
+        rescue Exception => e
+          logger.warn("Unable to deliver mail: #{e.message}");
+          # continue as the mail is not critical to the creation of the account.
         end
         flash[:error_message] = "Account created, now edit your profile!"
         redirect_to :action => "edit", :id => @user
