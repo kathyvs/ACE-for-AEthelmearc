@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101222122512) do
+ActiveRecord::Schema.define(:version => 20110707042838) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20101222122512) do
     t.string  "email"
     t.string  "title"
     t.boolean "mailok_flag",        :default => false
+    t.boolean "archived_flag",      :default => false
   end
 
 end
