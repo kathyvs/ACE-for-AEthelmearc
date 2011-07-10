@@ -28,7 +28,7 @@
 	  <td valign="top">
 	    <div id="navbar">
 	      <% if session[:user] %>
-	      <center><em><%= session[:user].login %></em></center><br />
+	      <center><em><%= h(session[:user].login) %></em></center><br />
 	      <% end %>
 	      <ul class="OneColList">
 		<li><%= link_to "Home", :controller => "user", :action => "index" %></li>

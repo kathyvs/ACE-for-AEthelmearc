@@ -1,11 +1,11 @@
-<strong><a name="<%= submission_counter+1 %>"></a><a name="sub-<%= submission.id %>"></a><%= submission_counter+1 %>. <%= submission.filing_name %>
+<strong><a name="<%= submission_counter+1 %>"></a><a name="sub-<%= submission.id %>"></a><%= submission_counter+1 %>. <%= h(submission.filing_name) %>
 <% if submission.sub_type
      if submission.resub_flag? %>
 Resubmitted
 <%   else %>
 New
 <%   end %>
-<%=  submission.sub_type.name %>.
+<%=  h(submission.sub_type.name) %>.
 <% end %></strong>
 <% if @postable and params[:view] != "iloi" and params[:view] != "icc" %>
 <%=  link_to "Comment", { :controller => 'comment', :action => 'new',
@@ -17,13 +17,15 @@ New
 <%=
   if submission.bwimg
     link_to image_tag( File.join( "/", "uploads", "thumbs", submission.bwimg ) ),
-      File.join( "/", "uploads", submission.bwimg)
+      File.join( "/", "uploads", submission.bwimg),
+      :class => 'sub_image'
   end
 %>
 <%=
   if submission.colorimg
     link_to image_tag( File.join( "/", "uploads", "thumbs", submission.colorimg ) ),
-      File.join( "/", "uploads", submission.colorimg)
+      File.join( "/", "uploads", submission.colorimg),
+      :class => 'sub_image'
   end
 %>
 <p><%= html_clean(submission.content) %></p>

@@ -2,7 +2,7 @@
 <% if @submission.nil? %>
 <p>Submission missing?</p>
 <% else %>
-<p><strong>Commenting on <%= @submission.filing_name %>:</strong></p>
+<p><strong>Commenting on <%= h(@submission.filing_name) %>:</strong></p>
 <% if @submission.summary %>
 <p><em><%= @submission.summary %></em></p>
 <% end %>

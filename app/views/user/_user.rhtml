@@ -1,18 +1,18 @@
 <tr>
-<td><%= user.longname %></td>
-<td><%= "C" if user.valid_flag %>
-<%= "S" if user.submit_flag %>
-<%= "A" if user.admin_flag %></td>
-<% if session[:user] and session[:user] != user and session[:user].admin_flag %>
-<td colspan="3">
-<%= link_to( "Validate", :action => "validate", :id => user.id ) if not user.valid_flag %>
-<%= link_to( "Unvalidate", :action => "unvalidate", :id => user.id ) if user.valid_flag %>
-<%= link_to( "Grant Submit", :action => "grant_submit", :id => user.id ) if not user.submit_flag %>
-<%= link_to( "Revoke Submit", :action => "revoke_submit", :id => user.id ) if user.submit_flag %>
-<%= link_to( "Grant Admin", :action => "grant_admin", :id => user.id ) if not user.admin_flag %>
-<%= link_to( "Revoke Admin", :action => "revoke_admin", :id => user.id ) if user.admin_flag %>
-<%= link_to( "Delete", { :action => "delete", :id => user.id }, :confirm => "Are you sure?", :method => "post" ) %>
-<%= link_to( "Edit Profile", :action => :edit, :id => user.id ) %>
-</td>
-<% end %>
+  <td><%= h(user.longname) %></td>
+  <td><%= "C" if user.valid_flag %>
+  <%= "S" if user.submit_flag %>
+  <%= "A" if user.admin_flag %></td>
+  <% if session[:user] and session[:user] != user and session[:user].admin_flag %>
+    <td colspan="3">
+      <%= link_to( "Validate", :action => "validate", :id => user.id ) if not user.valid_flag %>
+      <%= link_to( "Unvalidate", :action => "unvalidate", :id => user.id ) if user.valid_flag %>
+      <%= link_to( "Grant Submit", :action => "grant_submit", :id => user.id ) if not user.submit_flag %>
+      <%= link_to( "Revoke Submit", :action => "revoke_submit", :id => user.id ) if user.submit_flag %>
+      <%= link_to( "Grant Admin", :action => "grant_admin", :id => user.id ) if not user.admin_flag %>
+      <%= link_to( "Revoke Admin", :action => "revoke_admin", :id => user.id ) if user.admin_flag %>
+      <%= link_to( "Delete", { :action => "delete", :id => user.id }, :confirm => "Are you sure?", :method => "post" ) %>
+      <%= link_to( "Edit Profile", :action => :edit, :id => user.id ) %>
+    </td>
+  <% end %>
 </tr>

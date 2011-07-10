@@ -1,5 +1,5 @@
 <%= error_messages_for :user %>
-<div class="sectionheader">Edit Profile for <%= @user.login %></div>
+<div class="sectionheader">Edit Profile for <%= h(@user.login) %></div>
 <p><%= link_to "Change Password", :action => "change_password", :id => @user %></p>
 <% form_for :user do |f| %>
 <table>

@@ -1,6 +1,6 @@
 <p><em>posted by
 <% if news.user %>
-<%=  news.longname %>
+<%=  h(news.longname) %>
 <% else %>
 (deleted user)
 <% end %>
@@ -9,4 +9,4 @@ on <%= news.posted.localtime().strftime "%Y/%m/%d %H:%M:%S %Z" %>:</em>
 <%=  link_to "Delete", { :controller => "news", :action => "delete",
          :id => news.id }, :confirm => "Are you sure?", :method => 'post' %>
 <% end %></p>
-<p><%= news.content %></p>
+<p><%= sanitize(news.content) %></p>

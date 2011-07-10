@@ -14,13 +14,15 @@ New
 <%=
   if draft.bwimg
     link_to image_tag( File.join( "/", "uploads", "thumbs", draft.bwimg ) ),
-      File.join( "/", "uploads", draft.bwimg)
+      File.join( "/", "uploads", draft.bwimg),
+      :class => 'sub_image'
   end
 %>
 <%=
   if draft.colorimg
     link_to image_tag( File.join( "/", "uploads", "thumbs", draft.colorimg ) ),
-      File.join( "/", "uploads", draft.colorimg)
+      File.join( "/", "uploads", draft.colorimg),
+      :class => 'sub_image'
   end
 %>
 <p><%= html_clean(draft.content) %></p>
