@@ -5,6 +5,7 @@ defaults: &defaults
     subject: Æthelmearc
     link: http://www.aethelmearc.org
     heralds_link: http://www.aeheralds.net
+    maintainer: Dame Elsbeth Anne Roth
   banner: banner.gif
 
 development:
