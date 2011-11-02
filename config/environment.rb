@@ -2,7 +2,7 @@
 
 # Uncomment below to force Rails into production mode when
 # you don't control web/app server and can't set it the proper way
-# ENV['RAILS_ENV'] ||= 'production'
+#ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
@@ -67,15 +67,15 @@ Rails::Initializer.run do |config|
   # If you change this key, all old sessions will become invalid!
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
-  config.action_controller.session = {
-    :session_key => '_ACE_session',
-    :secret      => 'b8be822e701398d3ddbbb8961f683d5bcfe05300dd5088c2c8839fc47a6e889aec2840183996ad32fc7abebe759bf715114f6b673f0f06c1dcc36aaee3fc4d4c'
-  }
+  #config.action_controller.session = {
+  #  :session_key => '_ACE_session',
+  #  :secret      => 'b8be822e701398d3ddbbb8961f683d5bcfe05300dd5088c2c8839fc47a6e889aec2840183996ad32fc7abebe759bf715114f6b673f0f06c1dcc36aaee3fc4d4c'
+  #}
 
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information
   # (create the session table with "rake db:sessions:create")
-  # config.action_controller.session_store = :active_record_store
+  config.action_controller.session_store = :active_record_store
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,
