@@ -1,6 +1,6 @@
 <p><strong>Comment by
 <% if comment.user %>
-<%   if session[:user] and session[:user].valid_flag? and comment.email and params[:view] != "iloi" and params[:view] != "icc" %>
+<%   if session[:user_id] and @session_user.valid_flag? and comment.email and params[:view] != "iloi" and params[:view] != "icc" %>
 <%=    mail_to comment.email, comment.longname %>
 <%   else %>
 <%=    comment.longname %>
@@ -9,13 +9,13 @@
 (deleted user)
 <% end %>
 on <%= comment.posted.localtime().strftime "%Y/%m/%d %H:%M:%S %Z" %>:
-<% if session[:user] and (session[:user] == comment.user or
-       session[:user].admin_flag? ) and not comment.locked? and params[:view] != "iloi" and params[:view] != "icc" %>
+<% if session[:user_id] and (@session_user == comment.user or
+       @session_user.admin_flag? ) and not comment.locked? and params[:view] != "iloi" and params[:view] != "icc" %>
 <%= link_to "Edit", :controller => "comment", :action => "edit",
         :id => comment %>
 <% end %>
-<% if session[:user] and (session[:user] == comment.user or
-      session[:user].admin_flag? ) and comment.replies.empty? and
+<% if session[:user_id] and (@session_user == comment.user or
+      @session_user.admin_flag? ) and comment.replies.empty? and
       not comment.locked? and params[:view] != "iloi" and params[:view] != "icc" %>
 <%= link_to "Delete", { :controller => "comment", :action => "delete",
         :id => comment}, :method => "post" %>

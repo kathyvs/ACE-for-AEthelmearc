@@ -27,24 +27,24 @@
         <tr>
 	  <td valign="top">
 	    <div id="navbar">
-	      <% if session[:user] %>
-	      <center><em><%= h(session[:user].login) %></em></center><br />
+	      <% if session[:user_id] %>
+	      <center><em><%= h(@session_user.login) %></em></center><br />
 	      <% end %>
 	      <ul class="OneColList">
 		<li><%= link_to "Home", :controller => "user", :action => "index" %></li>
-		<% if session[:user] %>
+		<% if session[:user_id] %>
 		<li><%= link_to "Logout", :controller => "user", :action => "logout" %></li>
-		<li><%= link_to "My&nbsp;Profile", :controller => "user", :action => :edit, :id => session[:user].id %></li>
+		<li><%= link_to "My&nbsp;Profile", :controller => "user", :action => :edit, :id => @session_user.id %></li>
 		<% else %>
 		<li><%= link_to "Login", :controller => "user", :action => "login" %></li>
 		<li><%= link_to "New&nbsp;User", :controller => "user", :action => "new" %></li>
 		<% end %>
-		<% if u=session[:user] and u.submit_flag? %>
+		<% if u=@session_user and u.submit_flag? %>
 		<li><%= link_to "My&nbsp;Drafts", :controller => "submission", :action => "drafts" %></li>
 		<% end %>
 		<li><%= link_to "Letters", :controller => "letter", :action => "list" %></li>
 		<li><%= link_to "Users", :controller => "user", :action => "list" %></li>
-		<% if u=session[:user] and u.submit_flag? %>
+		<% if u=@session_user and u.submit_flag? %>
 		<li><%= link_to "Add News", :controller => "news", :action => "new" %></li>
 		<% end %>
 	      </ul>

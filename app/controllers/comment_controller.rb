@@ -25,7 +25,7 @@ class CommentController < ApplicationController
     if request.post?
       @comment=Comment.new(params[:comment])
       @comment.posted = Time.now
-      @comment.user_id = session[:user].id
+      @comment.user_id = session[:user_id]
       if @comment.save
         if @comment.parent and @comment.parent.email
           begin

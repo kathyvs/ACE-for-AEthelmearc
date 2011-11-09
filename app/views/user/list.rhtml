@@ -6,7 +6,7 @@
 <table>
 <%= render :partial => "user", :collection => @newusers %>
 </table>
-<% if session[:user] and session[:user].admin_flag %>
+<% if session[:user_id] and @session_user.admin_flag %>
 <div class="sectionheader">Archived Users</div>
 <table>
 <%= render :partial => "user", :collection => @archusers %>

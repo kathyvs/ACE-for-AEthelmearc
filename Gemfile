@@ -40,3 +40,8 @@ group :development, :test do
   #gem 'ruby-debug'
 #   gem 'webrat'
 end
+
+group :production do
+
+  gem 'mysql'
+end

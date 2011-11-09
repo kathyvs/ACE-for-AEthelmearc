@@ -24,7 +24,7 @@ class NewsController < ApplicationController
   def new
     if request.post?
       @news=News.new(params[:news])
-      @news.user_id = session[:user].id
+      @news.user_id = session[:user_id]
       @news.posted = Time.now
       if @news.save
         redirect_to :controller => "user", :action => "index"

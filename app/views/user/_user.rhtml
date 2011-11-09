@@ -3,7 +3,7 @@
 <td><%= "C" if user.valid_flag %>
   <%= "S" if user.submit_flag %>
   <%= "A" if user.admin_flag %></td>
-  <% if session[:user] and session[:user] != user and session[:user].admin_flag %>
+  <% if session[:user_id] and @session_user != user and @session_user.admin_flag %>
     <td colspan="3">
       <%= link_to( "Validate", :action => "validate", :id => user.id ) if not user.valid_flag %>
       <%= link_to( "Unvalidate", :action => "unvalidate", :id => user.id ) if user.valid_flag %>

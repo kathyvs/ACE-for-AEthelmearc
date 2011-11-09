@@ -20,8 +20,19 @@
 class ApplicationController < ActionController::Base
   session :session_key => '_hcs.randomgang.com_session_id'
 
+  before_filter :fetch_login
+
   private
-    
+
+    def fetch_login
+      @session_user = session[:user_id] && User.find(session[:user_id])
+      return true
+    end
+
+    def session_user
+      @session_user
+    end
+
     def redirect_with_error(message)
       flash[:error_message] = message
       if request.env["HTTP_REFERER"]
@@ -31,35 +42,35 @@ class ApplicationController < ActionController::Base
       end
     end
     def require_login
-      if session[:user].nil?
+      if session_user.nil?
         redirect_with_error "You must log in first!"
         return false
       end
       true
     end
     def require_admin_flag
-      unless session[:user] and session[:user].admin_flag?
+      unless session_user and session_user.admin_flag?
         redirect_with_error "You must be an admin to do that!"
         return false
       end
       true
     end
     def require_submit_flag
-      unless session[:user] and session[:user].submit_flag?
+      unless session_user and session_user.submit_flag?
         redirect_with_error "You must be a submission herald to do that!"
         return false
       end
       true
     end
     def require_valid_flag
-      unless session[:user] and session[:user].valid_flag?
+      unless session_user and session_user.valid_flag?
         redirect_with_error "You must be a valid user to do that!"
         return false
       end
       true
     end
     def user_controls(obj)
-      session[:user] and
-          (session[:user] == obj.user or session[:user].admin_flag?)
+      session[:user_id] and
+          (session[:user_id] == obj.user.id or session_user.admin_flag?)
     end
 end

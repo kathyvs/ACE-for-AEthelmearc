@@ -37,7 +37,7 @@ class UserController < ApplicationController
     if request.post?
       @user = User.find_by_login( params[:login] )
       if @user and @user.check_password( params[:password] ) and not @user.archived_flag
-        session[:user] = @user
+        session[:user_id] = @user.id
         redirect_to :action => "index"
       else
         flash.now[:error_message] = "Incorrect login or password!"
@@ -54,7 +54,7 @@ class UserController < ApplicationController
     if request.post?
       @user = User.new( params[:user] )
       if @user.save
-        session[:user] = @user
+        session[:user_id] = @user.id
         admins = User.admins.map { |u| u.email }
         begin
           Mailer::deliver_newuser_notification(admins,@user)
@@ -86,8 +86,8 @@ class UserController < ApplicationController
   end
 
   def edit
-    unless session[:user] and ( session[:user].id == params[:id].to_i or
-        session[:user].admin_flag )
+    unless session_user and ( session_user.id == params[:id].to_i or
+        session_user.admin_flag? )
       redirect_with_error "You can't modify this profile!"
       return
     end
@@ -98,7 +98,6 @@ class UserController < ApplicationController
       else
         @user.update_attributes( params[:user] )
         if @user.save
-          session[:user].reload if session[:user].id == params[:id].to_i
           flash.now[:error_message] = "Profile saved!"
           redirect_to :action => "index"
         end
@@ -108,8 +107,8 @@ class UserController < ApplicationController
 
   def change_password
     @user = User.find_by_id( params[:id] )
-    unless session[:user] and ( session[:user] == @user or
-        session[:user].admin_flag? )
+    unless session_user and ( session_user.id == @user.id or
+        session_user.admin_flag? )
       redirect_with_error "You can't change this password!"
       return
     end

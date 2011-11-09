@@ -2,7 +2,7 @@
 <% if @letter.locked %>
 (locked on <%= @letter.locked %>)
 <% end %>
-<% if session[:user] && session[:user].admin_flag and params[:view] != "iloi" and params[:view] != "icc"
+<% if session[:user_id] && @session_user.admin_flag and params[:view] != "iloi" and params[:view] != "icc"
      if @letter.locked %>
 <%=    link_to "Unlock", :action => "toggle_lock", :id => @letter.id %>
 <%   else %>

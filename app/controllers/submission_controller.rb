@@ -23,7 +23,7 @@ class SubmissionController < ApplicationController
 
   def new
     if request.post?
-      @submission = session[:user].submissions.build( params[:submission] )
+      @submission = session_user.submissions.build( params[:submission] )
       @submission.draft_flag = true
       if @submission.save
         redirect_to :action => "drafts"
@@ -68,6 +68,6 @@ class SubmissionController < ApplicationController
   end
 
   def drafts
-    @drafts = session[:user].drafts
+    @drafts = session_user.drafts
   end
 end

@@ -28,10 +28,10 @@ class LetterController < ApplicationController
       @letter.posted = Date.today
       if not drafts=params[:drafts] or drafts.length < 1
         @letter.errors.add_to_base "You must select at least one draft!"
-        @drafts = session[:user].drafts
+        @drafts = session_user.drafts
         render :action => "new"
       elsif not @letter.save
-        @drafts = session[:user].drafts
+        @drafts = session_user.drafts
         render :action => "new"
       else
         drafts.each do |id|
@@ -59,7 +59,7 @@ class LetterController < ApplicationController
       end
     else
       @letter = Letter.new
-      @drafts = session[:user].drafts
+      @drafts = session_user.drafts
     end
   end
 
@@ -73,7 +73,7 @@ class LetterController < ApplicationController
     unless params[:id] and @letter = Letter.find_by_id(params[:id])
       redirect_with_error "Letter not found?"
     else
-      @postable = (session[:user] and session[:user].valid_flag) &&
+      @postable = (session_user and session_user.valid_flag) &&
           !@letter.locked
       subs = @letter.submissions
       coms = subs.map { |s| s.comments }.flatten
