@@ -20,10 +20,10 @@ class LetterControllerTest < ActionController::TestCase
     get :new, {}, {}
     assert_redirected_to :controller => :user
     # fail: no submit flag
-    get :new, {}, :user => users(:commenter)
+    get :new, {}, :user_id => users(:commenter).id
     assert_redirected_to :controller => :user
     # success
-    get :new, {}, :user => users(:admin)
+    get :new, {}, :user_id => users(:admin).id
     assert_template "new"
   end
 
@@ -34,13 +34,13 @@ class LetterControllerTest < ActionController::TestCase
     post :new, goodparams, {}
     assert_redirected_to :controller => :user
     # fail: no submit flag
-    post :new, goodparams, :user => users(:commenter)
+    post :new, goodparams, :user_id => users(:commenter).id
     assert_redirected_to :controller => :user
     # fail: no drafts selected
-    post :new, { :comments => "spa fon" }, :user => users(:submitter)
+    post :new, { :comments => "spa fon" }, :user_id => users(:submitter).id
     assert_template "new"
     # success
-    post :new, goodparams, :user => users(:submitter)
+    post :new, goodparams, :user_id => users(:submitter).id
     assert_redirected_to :controller => :submission, :action => :drafts
   end
 
@@ -64,13 +64,13 @@ class LetterControllerTest < ActionController::TestCase
     get :toggle_lock, { :id => letters(:locked) }, {}
     assert_redirected_to :controller => :user
     # fail: no admin flag
-    get :toggle_lock, { :id => letters(:locked) }, :user => users(:submitter)
+    get :toggle_lock, { :id => letters(:locked) }, :user_id => users(:submitter).id
     assert_redirected_to :controller => :user
     # fail: letter not found
-    get :toggle_lock, { :id => 12390123190 }, :user => users(:admin)
+    get :toggle_lock, { :id => 12390123190 }, :user_id => users(:admin).id
     assert_redirected_to :controller => :user
     # success
-    get :toggle_lock, { :id => letters(:locked) }, :user => users(:admin)
+    get :toggle_lock, { :id => letters(:locked) }, :user_id => users(:admin).id
     assert_redirected_to :action => :view, :id => letters(:locked)
     letters(:locked).reload
     assert !letters(:locked).locked

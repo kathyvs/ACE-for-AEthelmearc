@@ -70,4 +70,8 @@ class SubmissionController < ApplicationController
   def drafts
     @drafts = session_user.drafts
   end
+  
+  def upload
+    
+  end
 end

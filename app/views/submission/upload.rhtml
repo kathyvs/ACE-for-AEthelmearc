@@ -1,0 +1,11 @@
+<%= link_to "Back to Drafts", :action => "drafts" %>
+<%= error_messages_for :submission %>
+<div class="sectionheader">Load Drafts from Oscar</div>
+<% form_tag "/upload", :method => :post do -%>
+Oscar Login: <%= text_field_tag 'login', @session_user.login %> <br/>
+Oscar Password <%= password_field_tag 'password' %> <br/>
+Proto-LoI Link: <%= text_field_tag 'link', '', :size => 80 %> <br/>
+<%= submit_tag "Start Upload" %>
+<% end -%>
+<%= link_to "Back to Drafts", :action => "drafts" %>
+
